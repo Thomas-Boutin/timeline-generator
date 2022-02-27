@@ -18,10 +18,13 @@
 		});
 
 	function selectTrack(index) {
+		const groupBy = (x,f)=>x.reduce((a,b)=>((a[f(b)]||=[]).push(b),a),{});
+
 		currentTrack = tracks[index];
 
 		if (currentTrack === "Tout") {
-			currentSlots = slots;
+			currentSlots = slots.filter((slot) => slot.type !== "break");
+			currentSlots = Object.entries(groupBy(currentSlots, v => v.schedule.substring(0, v.schedule.indexOf('h'))));
 		}
 		if (currentTrack !== "Tout") {
 			currentSlots = slots.filter((slot) => slot.track === currentTrack);
@@ -51,17 +54,25 @@
 			{/each}
 		</ul>
 	</div>
-	<div class:is-centered="{currentTrack !== "Tout"}" class="timeline">
-		{#each currentSlots as slot, i}
-			{#if slot.type === "talk"}
-				<SlotTalk talk={slot} isTalkPositionEven={isTalkPositionEven(slot)} onShowTalkDetail={showTalkDetail} />
+	<div class:is-centered="{currentTrack !== "Tout" && window.innerWidth > 768}" class="timeline">
+		{#each currentSlots as slot}
+			{#if slot.type === "talk" && currentTrack !== "Tout"}
+				<SlotTalk talks={[slot]} isTalkPositionEven={isTalkPositionEven(slot)} onShowTalkDetail={showTalkDetail} />
+			{/if}
+			{#if currentTrack == "Tout" && slot[1][0].type === 'talk'}
+				<SlotTalk talks={slot[1]} isTalkPositionEven={false} onShowTalkDetail={showTalkDetail} />
 			{/if}
 			{#if slot.type === "section"}
-				<header class="timeline-header">
+				<header class="timeline-header pt-5 pb-5">
 					<span class="tag is-medium is-primary">{slot.label}</span>
 				</header>
 			{/if}
-			{#if slot.type === "break"}
+			{#if currentTrack == "Tout" && slot[1][0].type === 'section'}
+				<header class="timeline-header pt-5 pb-5">
+					<span class="tag is-medium is-primary">{slot[1][0].label}</span>
+				</header>
+			{/if}
+			{#if slot.type === "break" && currentTrack !== "Tout"}
 				<div class="timeline-item timeline-break">
 					<div
 						class="timeline-marker is-primary container is-image is-16x16 is-justify-content-center is-flex"
