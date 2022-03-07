@@ -17,7 +17,7 @@
 
         return md.render(
             markdown.replaceAll("\\n", "\n").replaceAll(/]\s*\(/gim, "](")
-        );
+        ).replaceAll("<a", '<a target="_blank"');
     }
 </script>
 
@@ -44,7 +44,7 @@
                 </div>
                 <div class="message-body">
                     {#if !!talk.talkCategory}
-                        <p class="is-size-7 has-text-success-dark">
+                        <p class="is-size-7 mb-2 has-text-success-dark">
                             <i class="fa fa-tag" />
                             {talk.talkCategory}
                         </p>
@@ -87,7 +87,49 @@
                     <div class="content">
                         <p>
                             <strong>{talk.speakerName}</strong>
-                            <small>@johnsmith</small>
+                            <small>
+                                {#if !!talk.speakerJobTitle}
+                                    {talk.speakerJobTitle}
+                                {/if}
+                                {#if !!talk.speakerJobTitle && !!talk.speakerCompany}
+                                    @
+                                {/if}
+                                {#if !!talk.speakerCompany}
+                                    {talk.speakerCompany}
+                                {/if}
+                            </small>
+                            {#if !!talk.speakerTwitterURL}
+                                <br />
+                                {#if talk.speakerTwitterURL.startsWith("http")}
+                                    <a target="_blank" href={talk.speakerTwitterURL}>
+                                        <small
+                                            ><i class="fa-brands fa-twitter" />
+                                            {talk.speakerTwitterURL}</small
+                                        >
+                                    </a>
+                                {:else}
+                                    <small
+                                        ><i class="fa-brands fa-twitter" />
+                                        {talk.speakerTwitterURL}</small
+                                    >
+                                {/if}
+                            {/if}
+                            {#if !!talk.speakerLinkedInURL}
+                                <br />
+                                {#if talk.speakerLinkedInURL.startsWith("http")}
+                                    <a target="_blank" href={talk.speakerLinkedInURL}>
+                                        <small
+                                            ><i class="fa-brands fa-linkedin" />
+                                            {talk.speakerLinkedInURL}</small
+                                        >
+                                    </a>
+                                {:else}
+                                    <small
+                                        ><i class="fa-brands fa-linkedin" />
+                                        {talk.speakerLinkedInURL}</small
+                                    >
+                                {/if}
+                            {/if}
                         </p>
                         <div class="has-text-justified word-break break-word">
                             {@html stringToHtml(talk.speakerBio)}
@@ -129,7 +171,49 @@
                         <div class="content">
                             <p>
                                 <strong>{talk.speaker2Name}</strong>
-                                <small>@johnsmith</small>
+                                <small>
+                                    {#if !!talk.speaker2JobTitle}
+                                        {talk.speaker2JobTitle}
+                                    {/if}
+                                    {#if !!talk.speaker2JobTitle && !!talk.speaker2Company}
+                                        @
+                                    {/if}
+                                    {#if !!talk.speaker2Company}
+                                        {talk.speaker2Company}
+                                    {/if}
+                                </small>
+                                {#if !!talk.speaker2TwitterURL}
+                                    <br />
+                                    {#if talk.speaker2TwitterURL.startsWith("http")}
+                                        <a target="_blank" href={talk.speaker2TwitterURL}>
+                                            <small
+                                                ><i class="fa-brands fa-twitter" />
+                                                {talk.speaker2TwitterURL}</small
+                                            >
+                                        </a>
+                                    {:else}
+                                        <small
+                                            ><i class="fa-brands fa-twitter" />
+                                            {talk.speaker2TwitterURL}</small
+                                        >
+                                    {/if}
+                                {/if}
+                                {#if !!talk.speaker2LinkedInURL}
+                                    <br />
+                                    {#if talk.speaker2LinkedInURL.startsWith("http")}
+                                        <a target="_blank" href={talk.speaker2LinkedInURL}>
+                                            <small
+                                                ><i class="fa-brands fa-linkedin" />
+                                                {talk.speaker2LinkedInURL}</small
+                                            >
+                                        </a>
+                                    {:else}
+                                        <small
+                                            ><i class="fa-brands fa-linkedin" />
+                                            {talk.speaker2LinkedInURL}</small
+                                        >
+                                    {/if}
+                                {/if}
                             </p>
                             <div
                                 class="has-text-justified word-break break-word"

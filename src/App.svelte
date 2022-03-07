@@ -9,7 +9,7 @@
 	let isModalOpen = false;
 	let modalTalk = {};
 
-	fetch("/csvjson.json")
+	fetch("/csvjson.json", {cache: "no-store"})
 		.then((response) => response.json())
 		.then((response) => {
 			slots = response;
@@ -24,6 +24,19 @@
 
 		if (currentTrack === "Tout") {
 			currentSlots = slots.filter((slot) => slot.type !== "break");
+			currentSlots.sort((a, b) => {
+				const hourA = parseInt(a.schedule.substring(0, a.schedule.indexOf('h'))); 
+				const timeA = parseInt(a.schedule.substring(a.schedule.indexOf('h') + 1, a.length)); 
+				const hourB = parseInt(b.schedule.substring(0, b.schedule.indexOf('h'))); 
+				const timeB = parseInt(b.schedule.substring(a.schedule.indexOf('h') + 1, b.length));
+				
+				if (hourA > hourB) return 1;
+				if (hourB > hourA) return -1;
+				if (hourA == hourB && timeA > timeB) return 1;
+				if (hourA == hourB && timeB > timeA) return -1;
+
+				return 0;
+			});
 			currentSlots = Object.entries(groupBy(currentSlots, v => v.schedule.substring(0, v.schedule.indexOf('h'))));
 		}
 		if (currentTrack !== "Tout") {

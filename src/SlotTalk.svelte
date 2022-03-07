@@ -28,9 +28,10 @@
 		<div class="columns is-multiline">
 			{#each talks as talk}
 				<div
+					class:is-clickable={!!talk.talkDescription}
 					class="column is-clickable"
 					class:is-one-third={talks.length > 1}
-					on:click={() => onShowTalkDetail(talk)}
+					on:click={() => !!talk.talkDescription && onShowTalkDetail(talk)}
 				>
 					<div class="box">
 						<article class="media">
