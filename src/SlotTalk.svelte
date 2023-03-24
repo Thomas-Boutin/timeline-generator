@@ -2,6 +2,7 @@
 	export let talks;
 	export let onShowTalkDetail;
 	export let isTalkPositionEven;
+	export let currentTrack;
 </script>
 
 <div
@@ -31,7 +32,8 @@
 					class:is-clickable={!!talk.talkDescription}
 					class="column is-clickable"
 					class:is-one-third={talks.length > 1}
-					on:click={() => !!talk.talkDescription && onShowTalkDetail(talk)}
+					on:click={() =>
+						!!talk.talkDescription && onShowTalkDetail(talk)}
 				>
 					<div class="box">
 						<article class="media">
@@ -79,11 +81,25 @@
 											>{talk.label}</small
 										>
 									</p>
-									{#if talks.length > 1}
-										<p class="tag is-primary is-light">
-											{talk.track}
-										</p>
-									{/if}
+									<p>
+										{#if currentTrack === "Tout"}
+											<span
+												class="tag is-primary is-light"
+											>
+												{talk.track}
+											</span>
+										{/if}
+										{#if talk.talkLanguage === "French"}
+											<span class="tag">
+												{talk.talkLanguage} 🇫🇷
+											</span>
+										{/if}
+										{#if talk.talkLanguage === "English"}
+											<span class="tag">
+												{talk.talkLanguage} 🇬🇧
+											</span>
+										{/if}
+									</p>
 								</div>
 							</div>
 						</article>

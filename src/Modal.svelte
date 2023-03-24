@@ -35,8 +35,20 @@
             />
         </header>
         <section class="modal-card-body">
-            <p class="tag is-primary is-light mb-3">
-                {talk.track}
+            <p class="mb-3">
+                <span class="tag is-primary is-light">
+                    {talk.track}
+                </span>
+                {#if talk.talkLanguage === 'French'}
+                    <span class="tag">
+                        {talk.talkLanguage} 🇫🇷
+                    </span>
+                {/if}
+                {#if talk.talkLanguage === 'English'}
+                    <span class="tag">
+                        {talk.talkLanguage} 🇬🇧
+                    </span>
+                {/if}
             </p>
             <article class="message is-black">
                 <div class="message-header">

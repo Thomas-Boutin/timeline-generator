@@ -70,10 +70,10 @@
 	<div class:is-centered="{currentTrack !== "Tout" && window.innerWidth > 768}" class="timeline">
 		{#each currentSlots as slot}
 			{#if slot.type === "talk" && currentTrack !== "Tout"}
-				<SlotTalk talks={[slot]} isTalkPositionEven={isTalkPositionEven(slot)} onShowTalkDetail={showTalkDetail} />
+				<SlotTalk talks={[slot]} currentTrack={currentTrack} isTalkPositionEven={isTalkPositionEven(slot)} onShowTalkDetail={showTalkDetail} />
 			{/if}
 			{#if currentTrack == "Tout" && slot[1][0].type === 'talk'}
-				<SlotTalk talks={slot[1]} isTalkPositionEven={false} onShowTalkDetail={showTalkDetail} />
+				<SlotTalk talks={slot[1]} currentTrack={currentTrack} isTalkPositionEven={false} onShowTalkDetail={showTalkDetail} />
 			{/if}
 			{#if slot.type === "section"}
 				<header class="timeline-header pt-5 pb-5">
