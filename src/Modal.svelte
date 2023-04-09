@@ -26,7 +26,7 @@
     <div class="modal-card">
         <header class="modal-card-head has-background-primary">
             <p class="modal-card-title is-flex-shrink-1 has-text-white pr-3">
-                {talk.label}
+                {talk.title}
             </p>
             <button
                 class="delete"
@@ -39,14 +39,14 @@
                 <span class="tag is-primary is-light">
                     {talk.track}
                 </span>
-                {#if talk.talkLanguage === 'French'}
+                {#if talk.language === 'French'}
                     <span class="tag">
-                        {talk.talkLanguage} 🇫🇷
+                        {talk.language} 🇫🇷
                     </span>
                 {/if}
-                {#if talk.talkLanguage === 'English'}
+                {#if talk.language === 'English'}
                     <span class="tag">
-                        {talk.talkLanguage} 🇬🇧
+                        {talk.language} 🇬🇧
                     </span>
                 {/if}
             </p>
@@ -55,14 +55,14 @@
                     <p>Résumé du talk</p>
                 </div>
                 <div class="message-body">
-                    {#if !!talk.talkCategory}
+                    {#if !!talk.category}
                         <p class="is-size-7 mb-2 has-text-success-dark">
                             <i class="fa fa-tag" />
-                            {talk.talkCategory}
+                            {talk.category}
                         </p>
                     {/if}
                     <div class="has-text-justified word-break break-word">
-                        {@html stringToHtml(talk.talkDescription)}
+                        {@html stringToHtml(talk.abstract)}
                     </div>
                 </div>
             </article>
@@ -72,24 +72,24 @@
                     <figure
                         class="image is-64x64 has-background-primary is-flex is-justify-content-center is-align-items-center"
                     >
-                        {#if !!talk.speakerPictureURL}
+                        {#if !!talk.speaker1PictureURL}
                             <figure class="image is-primary is-64x64">
-                                <img src={talk.speakerPictureURL} />
+                                <img src={talk.speaker1PictureURL} />
                             </figure>
-                        {:else if !!talk.speakerName}
+                        {:else if !!talk.speaker1FullName}
                             <figure
                                 class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
                             >
                                 <div class="has-text-white is-size-4">
-                                    {talk.speakerName[0]}
+                                    {talk.speaker1FullName[0]}
                                 </div>
                             </figure>
-                        {:else if !!talk.label}}
+                        {:else if !!talk.title}}
                             <figure
                                 class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
                             >
                                 <div class="has-text-white is-size-4">
-                                    {talk.label[0]}
+                                    {talk.title[0]}
                                 </div>
                             </figure>
                         {/if}
@@ -98,58 +98,58 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>{talk.speakerName}</strong>
+                            <strong>{talk.speaker1FullName}</strong>
                             <small>
-                                {#if !!talk.speakerJobTitle}
-                                    {talk.speakerJobTitle}
+                                {#if !!talk.speaker1JobTitle}
+                                    {talk.speaker1JobTitle}
                                 {/if}
-                                {#if !!talk.speakerJobTitle && !!talk.speakerCompany}
+                                {#if !!talk.speaker1JobTitle && !!talk.speaker1Company}
                                     @
                                 {/if}
-                                {#if !!talk.speakerCompany}
-                                    {talk.speakerCompany}
+                                {#if !!talk.speaker1Company}
+                                    {talk.speaker1Company}
                                 {/if}
                             </small>
-                            {#if !!talk.speakerTwitterURL}
+                            {#if !!talk.speaker1TwitterURL}
                                 <br />
-                                {#if talk.speakerTwitterURL.startsWith("http")}
-                                    <a target="_blank" href={talk.speakerTwitterURL}>
+                                {#if talk.speaker1TwitterURL.startsWith("http")}
+                                    <a target="_blank" href={talk.speaker1TwitterURL}>
                                         <small
                                             ><i class="fa-brands fa-twitter" />
-                                            {talk.speakerTwitterURL}</small
+                                            {talk.speaker1TwitterURL}</small
                                         >
                                     </a>
                                 {:else}
                                     <small
                                         ><i class="fa-brands fa-twitter" />
-                                        {talk.speakerTwitterURL}</small
+                                        {talk.speaker1TwitterURL}</small
                                     >
                                 {/if}
                             {/if}
-                            {#if !!talk.speakerLinkedInURL}
+                            {#if !!talk.speaker1LinkedInURL}
                                 <br />
-                                {#if talk.speakerLinkedInURL.startsWith("http")}
-                                    <a target="_blank" href={talk.speakerLinkedInURL}>
+                                {#if talk.speaker1LinkedInURL.startsWith("http")}
+                                    <a target="_blank" href={talk.speaker1LinkedInURL}>
                                         <small
                                             ><i class="fa-brands fa-linkedin" />
-                                            {talk.speakerLinkedInURL}</small
+                                            {talk.speaker1LinkedInURL}</small
                                         >
                                     </a>
                                 {:else}
                                     <small
                                         ><i class="fa-brands fa-linkedin" />
-                                        {talk.speakerLinkedInURL}</small
+                                        {talk.speaker1LinkedInURL}</small
                                     >
                                 {/if}
                             {/if}
                         </p>
                         <div class="has-text-justified word-break break-word">
-                            {@html stringToHtml(talk.speakerBio)}
+                            {@html stringToHtml(talk.speaker1Bio)}
                         </div>
                     </div>
                 </div>
             </article>
-            {#if !!talk.speaker2Name}
+            {#if !!talk.speaker2FullName}
                 <br />
                 <article class="media">
                     <div class="media-left">
@@ -160,20 +160,20 @@
                                 <figure class="image is-primary is-64x64">
                                     <img src={talk.speaker2PictureURL} />
                                 </figure>
-                            {:else if !!talk.speaker2Name}
+                            {:else if !!talk.speaker2FullName}
                                 <figure
                                     class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
                                 >
                                     <div class="has-text-white is-size-4">
-                                        {talk.speaker2Name[0]}
+                                        {talk.speaker2FullName[0]}
                                     </div>
                                 </figure>
-                            {:else if !!talk.label}
+                            {:else if !!talk.title}
                                 <figure
                                     class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
                                 >
                                     <div class="has-text-white is-size-4">
-                                        {talk.label[0]}
+                                        {talk.title[0]}
                                     </div>
                                 </figure>
                             {/if}
@@ -182,7 +182,7 @@
                     <div class="media-content">
                         <div class="content">
                             <p>
-                                <strong>{talk.speaker2Name}</strong>
+                                <strong>{talk.speaker2FullName}</strong>
                                 <small>
                                     {#if !!talk.speaker2JobTitle}
                                         {talk.speaker2JobTitle}
@@ -231,6 +231,93 @@
                                 class="has-text-justified word-break break-word"
                             >
                                 {@html stringToHtml(talk.speaker2Bio)}
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            {/if}
+            {#if !!talk.speaker3FullName}
+                <br />
+                <article class="media">
+                    <div class="media-left">
+                        <figure
+                            class="image is-64x64 has-background-primary is-flex is-justify-content-center is-align-items-center"
+                        >
+                            {#if !!talk.speaker3PictureURL}
+                                <figure class="image is-primary is-64x64">
+                                    <img src={talk.speaker3PictureURL} />
+                                </figure>
+                            {:else if !!talk.speaker3FullName}
+                                <figure
+                                    class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
+                                >
+                                    <div class="has-text-white is-size-4">
+                                        {talk.speaker3FullName[0]}
+                                    </div>
+                                </figure>
+                            {:else if !!talk.title}
+                                <figure
+                                    class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
+                                >
+                                    <div class="has-text-white is-size-4">
+                                        {talk.title[0]}
+                                    </div>
+                                </figure>
+                            {/if}
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{talk.speaker3FullName}</strong>
+                                <small>
+                                    {#if !!talk.speaker3JobTitle}
+                                        {talk.speaker3JobTitle}
+                                    {/if}
+                                    {#if !!talk.speaker3JobTitle && !!talk.speaker3Company}
+                                        @
+                                    {/if}
+                                    {#if !!talk.speaker3Company}
+                                        {talk.speaker3Company}
+                                    {/if}
+                                </small>
+                                {#if !!talk.speaker3TwitterURL}
+                                    <br />
+                                    {#if talk.speaker3TwitterURL.startsWith("http")}
+                                        <a target="_blank" href={talk.speaker3TwitterURL}>
+                                            <small
+                                                ><i class="fa-brands fa-twitter" />
+                                                {talk.speaker3TwitterURL}</small
+                                            >
+                                        </a>
+                                    {:else}
+                                        <small
+                                            ><i class="fa-brands fa-twitter" />
+                                            {talk.speaker3TwitterURL}</small
+                                        >
+                                    {/if}
+                                {/if}
+                                {#if !!talk.speaker3LinkedInURL}
+                                    <br />
+                                    {#if talk.speaker3LinkedInURL.startsWith("http")}
+                                        <a target="_blank" href={talk.speaker3LinkedInURL}>
+                                            <small
+                                                ><i class="fa-brands fa-linkedin" />
+                                                {talk.speaker3LinkedInURL}</small
+                                            >
+                                        </a>
+                                    {:else}
+                                        <small
+                                            ><i class="fa-brands fa-linkedin" />
+                                            {talk.speaker3LinkedInURL}</small
+                                        >
+                                    {/if}
+                                {/if}
+                            </p>
+                            <div
+                                class="has-text-justified word-break break-word"
+                            >
+                                {@html stringToHtml(talk.speaker3Bio)}
                             </div>
                         </div>
                     </div>

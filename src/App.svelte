@@ -2,14 +2,16 @@
 	import Modal from "./Modal.svelte";
 	import SlotTalk from "./SlotTalk.svelte";
 
+	export let slotsEndpoint;
+
 	let tracks = ["Tout"];
 	let slots = [];
 	let currentTrack;
 	let currentSlots = [];
 	let isModalOpen = false;
 	let modalTalk = {};
-
-	fetch("/csvjson.json", {cache: "no-store"})
+	
+	fetch(slotsEndpoint, {cache: "no-store"})
 		.then((response) => response.json())
 		.then((response) => {
 			slots = response;
@@ -77,12 +79,12 @@
 			{/if}
 			{#if slot.type === "section"}
 				<header class="timeline-header pt-5 pb-5">
-					<span class="tag is-medium is-primary">{slot.label}</span>
+					<span class="tag is-medium is-primary">{slot.title}</span>
 				</header>
 			{/if}
 			{#if currentTrack == "Tout" && slot[1][0].type === 'section'}
 				<header class="timeline-header pt-5 pb-5">
-					<span class="tag is-medium is-primary">{slot[1][0].label}</span>
+					<span class="tag is-medium is-primary">{slot[1][0].title}</span>
 				</header>
 			{/if}
 			{#if slot.type === "break" && currentTrack !== "Tout"}

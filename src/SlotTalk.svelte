@@ -29,18 +29,18 @@
 		<div class="columns is-multiline">
 			{#each talks as talk}
 				<div
-					class:is-clickable={!!talk.talkDescription}
+					class:is-clickable={!!talk.abstract}
 					class="column is-clickable"
 					class:is-one-third={talks.length > 1}
 					on:click={() =>
-						!!talk.talkDescription && onShowTalkDetail(talk)}
+						!!talk.abstract && onShowTalkDetail(talk)}
 				>
 					<div class="box">
 						<article class="media">
 							<div class="media-left">
-								{#if !!talk.speakerPictureURL}
+								{#if !!talk.speaker1PictureURL}
 									<figure class="image is-primary is-64x64">
-										<img src={talk.speakerPictureURL} />
+										<img src={talk.speaker1PictureURL} />
 									</figure>
 								{:else if !!talk.speaker2PictureURL}
 									<figure class="image is-primary is-64x64">
@@ -51,7 +51,7 @@
 										class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
 									>
 										<div class="has-text-white is-size-4">
-											{talk.speakerName[0]}
+											{talk.speaker1fullName[0]}
 										</div>
 									</figure>
 								{:else}
@@ -59,7 +59,7 @@
 										class="image is-primary is-flex is-64x64 is-align-items-center is-justify-content-center"
 									>
 										<div class="has-text-white is-size-4">
-											{talk.label[0]}
+											{talk.title[0]}
 										</div>
 									</figure>
 								{/if}
@@ -68,17 +68,17 @@
 								<div class="content">
 									<p>
 										<strong>{talk.schedule}</strong>
-										{#if !!talk.talkCategory}
+										{#if !!talk.category}
 											-
 											<span
 												class="is-size-7 has-text-success-dark is-capitalized"
 												><i class="fa fa-tag" />
-												{talk.talkCategory}</span
+												{talk.category}</span
 											>
 										{/if}
 										<br />
 										<small class="is-justify-content-center"
-											>{talk.label}</small
+											>{talk.title}</small
 										>
 									</p>
 									<p>
@@ -89,14 +89,14 @@
 												{talk.track}
 											</span>
 										{/if}
-										{#if talk.talkLanguage === "French"}
+										{#if talk.language === "French"}
 											<span class="tag">
-												{talk.talkLanguage} 🇫🇷
+												{talk.language} 🇫🇷
 											</span>
 										{/if}
-										{#if talk.talkLanguage === "English"}
+										{#if talk.language === "English"}
 											<span class="tag">
-												{talk.talkLanguage} 🇬🇧
+												{talk.language} 🇬🇧
 											</span>
 										{/if}
 									</p>

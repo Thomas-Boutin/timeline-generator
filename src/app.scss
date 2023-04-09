@@ -8,6 +8,11 @@ $primary: #4b6bff;
     }
 }
 
+ul {
+    list-style: disc;
+    padding-left: 30px;
+}
+
 .timeline {
     .timeline-break .timeline-marker {
         border-radius: 0 !important;
