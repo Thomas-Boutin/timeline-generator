@@ -5,14 +5,16 @@ function stringToHtml(markdown) {
         linkify: true,
         html: true,
         typographer: true,
-        breaks: true,
+        breaks: false,
     });
 
     if (!markdown) return "";
 
+    console.log(markdown);
+
     return md.render(
-        markdown.replaceAll("\\n", "\n").replaceAll(/]\s*\(/gim, "](")
-    ).replaceAll("<a", '<a target="_blank"');
+        markdown.replaceAll("\\n", "\n").replaceAll(/\t/g, "&nbsp;&nbsp;&nbsp;&nbsp;").replaceAll(/]\s*\(/gim, "](")
+    ).replaceAll(/\n/g, '<br>').replaceAll("<a", '<a target="_blank"');
 }
 
 export default stringToHtml;
